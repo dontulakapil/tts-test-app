@@ -1,0 +1,18 @@
+#include <string.h>
+#include <stdio.h>
+#include <jni.h>
+JNIEnv* env1;
+
+jstring Java_com_app_MyTextToSpeech_MyTextToSpeech_getJniString( JNIEnv* env, jobject obj){
+
+env1=env;
+    jstring jstr = (*env)->NewStringUTF(env, "This comes from jni.");
+    jclass clazz = (*env)->FindClass(env, "com/app/MyTextToSpeech/MyTextToSpeech");
+    jmethodID messageMe = (*env)->GetMethodID(env, clazz, "messageMe", "(Ljava/lang/String;)Ljava/lang/String;");
+    jobject result = (*env)->CallObjectMethod(env, obj, messageMe, jstr);
+
+    const char* str = (*env)->GetStringUTFChars(env,(jstring) result, NULL); // should be released but what a heck, it's a tutorial :)
+    printf("%s\n", str);
+
+    return (*env)->NewStringUTF(env, str);
+}
