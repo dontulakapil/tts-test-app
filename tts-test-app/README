@@ -1,0 +1,2 @@
+This a test app for testing word level feed back in flite tts engine for android.
+At present word level call back is being tested using logs. So it is used to run the engine.
